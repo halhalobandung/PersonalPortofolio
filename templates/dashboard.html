@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+    :root {
+        --primary-color: #00aaff; /* Biru cerah sebagai aksen */
+        --dark-bg: #111;          /* Latar belakang utama (lebih gelap) */
+        --card-bg: #1a1a1a;        /* Latar belakang kartu */
+        --text-light: #f0f0f0;     /* Teks utama */
+        --text-muted: #888;        
+    }
+
+    body {
+        background-color: var(--dark-bg);
+        color: var(--text-light);
+    }
+
+    .navbar {
+        background-color: var(--card-bg) !important;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .card {
+        background-color: var(--card-bg);
+        border: 1px solid #f0f0f0;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0, 170, 255, 0.1);
+    }
+
+    .btn-primary {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+    }
+    .btn-primary:hover {
+        background-color: #0088cc;
+        border-color: #0088cc;
+    }
+    
+    .btn-outline-light {
+        border-color: var(--text-muted);
+        color: var(--text-muted);
+    }
+    .btn-outline-light:hover {
+        background-color: var(--primary-color);
+        color: var(--dark-bg);
+        border-color: var(--primary-color);
+    }
+
+    hr {
+        border-color: #f0f0f0;
+    }
+
+    /* Style khusus untuk home.html */
+    .hero-section {
+        padding: 6rem 0;
+        text-align: center;
+        background: linear-gradient(135deg, #1a1a1a 25%, #111 100%);
+    }
+    .hero-section h1 {
+        font-size: 3.5rem;
+        font-weight: bold;
+    }
+    .hero-section h1 span {
+        color: var(--primary-color);
+    }
+    .hero-section p {
+        font-size: 1.25rem;
+        color: var(--text-muted);
+    }
+
+    .skill-icon-lg {
+        font-size: 4rem;
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+    }
+
+    /* Style khusus untuk dashboard.html */
+    .table {
+        border-color: #333;
+    }
+    .form-control, .form-select {
+        background-color: #222;
+        border-color: #444;
+        color: var(--text-light);
+    }
+    .form-control:focus, .form-select:focus {
+        background-color: #222;
+        border-color: var(--primary-color);
+        color: var(--text-light);
+        box-shadow: 0 0 0 0.25rem rgba(0, 170, 255, 0.25);
+    }
+</style>
+    <title>Dashboard Admin</title>
+
+    <style>
+        .skill-icon {
+            font-size: 1.5rem; /* Memperbesar ikon font awesome */
+        }
+        .project-image {
+            width: 60px;
+            height: 40px;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body class="bg-dark text-white">
+    <nav class="navbar navbar-dark bg-black px-4">
+        <span class="navbar-brand fw-bold">Dashboard Admin</span>
+        <div class="d-flex align-items-center">
+            <span class="me-3">Selamat datang, {{ admin_name }}</span>
+            <a class="btn btn-outline-light" href="{{ url_for('logout') }}">Logout</a>
+        </div>
+    </nav>
+
+<div class="container py-4">
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button title="button" type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    {% if action == 'add_project' or action == 'edit_project' %}
+    
+    <div class="card bg-black">
+        <div class="card-header">
+            <h2>{{ title }}</h2>
+        </div>
+        <div class="card-body">
+            <form method="POST" action="" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="proj_title" class="form-label">Judul Proyek</label>
+                    <input id="proj_title" type="text" name="title" class="form-control bg-black text-white" 
+                           value="{{ project.title if project else '' }}" required>
+                </div>
+                <div class="mb-3">
+                    <label for="proj_desc" class="form-label">Deskripsi</label>
+                    <textarea id="proj_desc" name="description" class="form-control bg-black text-white" rows="3">{{ project.description if project else '' }}</textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="proj_link" class="form-label">Link Proyek</label>
+                    <input id="proj_link" type="text" name="link" class="form-control bg-black text-white" 
+                           value="{{ project.link if project else '' }}">
+                </div>
+                <div class="mb-3">
+                    <label for="proj_img" class="form-label">Gambar Proyek</label>
+                    <input id="proj_img" type="file" name="image" class="form-control bg-black text-white">
+                    {% if project and project.image %}
+                        <small>File saat ini: {{ project.image }}</small>
+                    {% endif %}
+                </div>
+                <button type="submit" class="btn btn-primary">Simpan</button>
+                <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">Batal</a>
+            </form>
+        </div>
+    </div>
+
+    {% elif action == 'add_skill' or action == 'edit_skill' %}
+    
+    <div class="card bg-black">
+        <div class="card-header">
+            <h2>{{ title }}</h2>
+        </div>
+        <div class="card-body">
+            <form method="POST" action="">
+                <div class="mb-3">
+                    <label for="skill_name" class="form-label">Nama Skill</label>
+                    <input id="skill_name" type="text" name="name" class="form-control bg-black text-white" 
+                           value="{{ skill.name if skill else '' }}" required>
+                </div>
+                <div class="mb-3">
+                    <label for="skill_level" class="form-label">Level</label>
+                    <input id="skill_level" type="text" name="level" class="form-control bg-black text-white" 
+                           value="{{ skill.level if skill else '' }}">
+                </div>
+                <div class="mb-3">
+                    <label for="skill_icon" class="form-label">Ikon (Font Awesome)</label>
+                    <input id="skill_icon" type="text" name="icon" class="form-control bg-black text-white" 
+                           value="{{ skill.icon if skill else '' }}" placeholder="cth: fab fa-python">
+                </div>
+                <button type="submit" class="btn btn-primary">Simpan</button>
+                <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">Batal</a>
+            </form>
+        </div>
+    </div>
+
+    {% else %}
+    
+    <section id="edit-profil" class="mb-5">
+        <h2>Kelola Profil</h2>
+        <div class="card bg-black">
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('dashboard', action='main') }}" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="prof_name" class="form-label">Nama Tampilan</label>
+                        <input id="prof_name" name="name" type="text" class="form-control bg-black text-white" value="{{ profile.name }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="prof_bio" class="form-label">Bio Singkat</label>
+                        <textarea id="prof_bio" name="bio" class="form-control bg-black text-white" rows="3">{{ profile.bio }}</textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="prof_photo" class="form-label">Foto Profil</label>
+                        <input id="prof_photo" name="photo" type="file" class="form-control bg-black text-white">
+                        <small>File saat ini: {{ profile.photo }}</small>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Simpan Perubahan Profil</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <hr class="border-light my-5">
+
+    <section id="kelola-skills" class="mb-5">
+        <h2>Kelola Skills</h2>
+        <a href="{{ url_for('dashboard', action='add_skill') }}" class="btn btn-light mb-3">
+            <i class="fas fa-plus"></i> Tambah Skill Baru
+        </a>
+        <table class="table table-dark table-bordered">
+            <tr><th>Ikon</th><th>Nama</th><th>Level</th><th>Aksi</th></tr>
+            {% for s in skills %}
+            <tr>
+                <td class="text-center"><i class="{{ s.icon }} skill-icon"></i></td>
+                <td>{{ s.name }}</td>
+                <td>{{ s.level }}</td>
+                <td class="text-center">
+                    <a title="button" class="btn btn-warning btn-sm" href="{{ url_for('dashboard', action='edit_skill', id=s.id) }}">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <form action="{{ url_for('delete_skill', id=s.id) }}" method="POST" class="d-inline">
+                        <button title="button" type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Hapus skill ini?');">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </section>
+
+    <hr class="border-light my-5">
+
+    <section id="kelola-projects" class="mb-5">
+        <h2>Kelola Projects</h2>
+        <a href="{{ url_for('dashboard', action='add_project') }}" class="btn btn-light mb-3">
+            <i class="fas fa-plus"></i> Tambah Proyek Baru
+        </a>
+        <table class="table table-dark table-bordered">
+            <tr><th>Gambar</th><th>Judul</th><th>Deskripsi</th><th>Aksi</th></tr>
+            {% for p in projects %}
+            <tr>
+                <td>
+                    {% if p.image %}
+                    <img src="{{ url_for('static', filename='uploads/' + p.image) }}" alt="{{ p.title }}" class="project-image">
+                    {% else %}
+                    <small>No Image</small>
+                    {% endif %}
+                </td>
+                <td>{{ p.title }}</td>
+                <td>{{ p.description }}</td>
+                <td class="text-center">
+                    <a title="button" class="btn btn-warning btn-sm" href="{{ url_for('dashboard', action='edit_project', id=p.id) }}">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <form action="{{ url_for('delete_project', id=p.id) }}" method="POST" class="d-inline">
+                        <button title="button" type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Hapus proyek ini?');">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </section>
+
+    {% endif %} </div> </body>
+</html>
