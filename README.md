@@ -19,4 +19,6 @@
 ## 2. Cara menjalankan aplikasi
       1) installasi virtualenv, flask, flask-mysqldb
 
+## 3. Dokumentasi (update soon)
+
 <img width="2880" height="1800" alt="image" src="https://github.com/user-attachments/assets/4a1ec043-02d7-46e7-bfe7-947f58ae6d46" />
