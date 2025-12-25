@@ -1,0 +1,152 @@
+/* =========================
+   ROOT VARIABLES (GLOBAL)
+========================= */
+:root {
+    --primary-color: #00aaff;
+    --dark-bg: #111;
+    --card-bg: #1a1a1a;
+    --text-light: #f0f0f0;
+    --text-muted: #888;
+    --border-light: #333;
+}
+
+/* =========================
+   GLOBAL
+========================= */
+body {
+    background-color: var(--dark-bg);
+    color: var(--text-light);
+}
+
+hr {
+    border-color: var(--border-light);
+}
+
+/* =========================
+   NAVBAR
+========================= */
+.navbar {
+    background-color: var(--card-bg) !important;
+    border-bottom: 1px solid var(--border-light);
+}
+
+/* =========================
+   CARD
+========================= */
+.card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-light);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 170, 255, 0.1);
+}
+
+.card .card-header h2,
+.card .card-body .form-label,
+.card .card-body small {
+    color: var(--primary-color);
+}
+
+/* =========================
+   BUTTON
+========================= */
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+    background-color: #0088cc;
+    border-color: #0088cc;
+}
+
+.btn-outline-light {
+    border-color: var(--text-muted);
+    color: var(--text-muted);
+}
+
+.btn-outline-light:hover {
+    background-color: var(--primary-color);
+    color: var(--dark-bg);
+    border-color: var(--primary-color);
+}
+
+/* =========================
+   FORM
+========================= */
+.form-control,
+.form-select {
+    background-color: #222;
+    border-color: #444;
+    color: var(--text-light);
+}
+
+.form-control:focus,
+.form-select:focus {
+    background-color: #222;
+    border-color: var(--primary-color);
+    color: var(--text-light);
+    box-shadow: 0 0 0 0.25rem rgba(0, 170, 255, 0.25);
+}
+
+/* =========================
+   HERO SECTION (HOME)
+========================= */
+.hero-section {
+    padding: 6rem 0;
+    text-align: center;
+    background: linear-gradient(135deg, #1a1a1a 25%, #111 100%);
+}
+
+.hero-section h1 {
+    font-size: 3.5rem;
+    font-weight: bold;
+}
+
+.hero-section h1 span {
+    color: var(--primary-color);
+}
+
+.hero-section p {
+    font-size: 1.25rem;
+    color: var(--text-muted);
+}
+
+/* =========================
+   SKILL
+========================= */
+.skill-icon-lg {
+    font-size: 4rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.skill-icon {
+    font-size: 1.5rem;
+}
+
+/* =========================
+   PROJECT
+========================= */
+.project-image {
+    width: 60px;
+    height: 40px;
+    object-fit: cover;
+}
+
+/* =========================
+   TABLE (DASHBOARD)
+========================= */
+.table {
+    border-color: var(--border-light);
+}
+
+/* =========================
+   LOGIN PAGE
+========================= */
+.text-info:hover {
+    color: var(--primary-color) !important;
+}
