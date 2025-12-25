@@ -17,7 +17,11 @@
    Upload Gambar: Fungsionalitas untuk meng-upload foto profil dan gambar proyek ke server.
 
 ## 2. Cara menjalankan aplikasi
-      1) installasi virtualenv, flask, flask-mysqldb
+      1) Menjalankan dipython, harus memiliki python
+      2) install virtualenv (pip3 virtualenv env)
+      3) activate env (env\Script\activate)
+      4) install flask (pip3 install flask)
+      5) install flask db (pip3 install flask-mysqldb)
 
 ## 3. Dokumentasi (update soon)
 
